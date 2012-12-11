@@ -66,7 +66,7 @@ small portions of the code (mostly in the parsetree and symboltable files) were
 written by Dr. Brian Turnquist at Bethel University and I have him to thank for
 the excellent intro course he taught on compiler construction.
 
-With that, he's some sparse documentation.  Happy coding!
+With that, here's some sparse documentation.  Happy coding!
 -Rob
 
 
