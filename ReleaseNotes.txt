@@ -1,0 +1,5 @@
+RELEASE NOTES:
+--------------
+
+12/7/2012 - v0.01
+* initial release
