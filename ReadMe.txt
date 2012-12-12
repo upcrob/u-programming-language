@@ -75,13 +75,12 @@ Building
 --------------------------------------------------------------------------------
 To make a working executable, you will need the following installed on your
 development machine:
-* flex
-* bison
+* flex (http://flex.sourceforge.net)
+* bison (http://gnu.org/software/bison)
 * a C compiler (I used GCC on an Ubuntu box)
 
 In theory, other compilers and platforms should work but I haven't done
-extensive testing. I'm fairly certain that some extra work will need to be done
-to get a non-*nix (Windows) port up and running.
+extensive testing.
 
 To build the compiler, change to the directory containing the source code and
 type "make".  This will build an executable using the included Makefile.
