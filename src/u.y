@@ -1,7 +1,7 @@
 %{
 	// General defines
 	#define YYDEBUG 1
-	#define VERSION "0.01"
+	#define VERSION "0.02"
 
 	// Includes
 	#include <stdio.h>
@@ -17,6 +17,7 @@
 	#include "stringqueue.h"
 	#include "prunefunctions.h"
 	#include <regex.h>
+	#include "optimizer.h"
 
 	extern char* currentFile;
 	extern symbol_stack* symStack;
@@ -925,6 +926,10 @@ int_exp:	int_op
 											$$->numOperands = 2;
 											$$->operands[0] = $1;
 											$$->operands[1] = $3;
+
+											// Check for divide by zero
+											if ($3->type == TN_INTEGER && $3->ival == 0)
+												yyerror("division by zero");
 									}
 			| int_exp '%' int_exp	{
 											$$ = newTreeNode();
@@ -932,6 +937,10 @@ int_exp:	int_op
 											$$->numOperands = 2;
 											$$->operands[0] = $1;
 											$$->operands[1] = $3;
+
+											// Check for division by zero
+											if ($3->type == TN_INTEGER && $3->ival == 0)
+												yyerror("division by zero");
 										}
 			| '(' int_exp ')' { $$ = $2; }
 			;
@@ -1178,6 +1187,8 @@ int main(int argc, char** argv)
 
 	if (errCount == 0)
 	{
+		FoldConstants(treeRoot, NULL, 0);
+
 		if (printParseTreeF == TRUE)
 		{
 			printf("PARSE TREE:\n");

@@ -7,6 +7,7 @@
 #include "strutil.h"
 #include "functiontable.h"
 #include "stringtable.h"
+#include "optimizer.h"
 
 // Global variables
 FILE* fp;

@@ -7,6 +7,5 @@ if I ever have time and become less lazy:
 * global variables - I have a bit of a personal vendetta against these from my
 	training and experience in software engineering, but for a language like
 	this, they seem almost (gasp) inevitable
-* constant folding - I plan to add this optimization to the compiler.
 * more assembly code in asm blocks - Right now only "mov" and "int" are supported,
 	and I'd like to support a greater subset of the syntax
