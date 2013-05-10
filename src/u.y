@@ -215,14 +215,14 @@ component_list:
 
 statement:
 	decl_assign_statement
-   | assignment_statement
-   | while_statement
-   | if_statement
-   | int_function_call ';'
-   | void_function_call ';'
-   | asm_statement
-   | return_statement
-   | undec_function_call ';'
+	| assignment_statement
+	| while_statement
+	| if_statement
+	| int_function_call ';'
+	| void_function_call ';'
+	| asm_statement
+	| return_statement
+	| undec_function_call ';'
 ;
 
 statement_list:
