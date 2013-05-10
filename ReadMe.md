@@ -1,9 +1,10 @@
 U Programming Language
---------------------------------------------------------------------------------
-Version 0.0.2 Documentation 2/23/2012
---------------------------------------------------------------------------------
+================================================================================
+Version 0.0.3 Documentation - 5/9/2013
 
 --------------------------------------------------------------------------------
+
+
 Introduction
 --------------------------------------------------------------------------------
 
@@ -59,15 +60,38 @@ At any rate, feel free to play around with the language.  I can't promise it's
 bug free (in fact, I know it's not), but hopefully it will get improved further
 over time.  Like Larry Wall, I reserve the right to be its "benevolent
 dictator", but feel free to make suggestions and use the source code for your
-own projects.  I'm not releasing it under any particular license, but let it be
-known that the source code should be used AT YOUR OWN RISK and I do request that
-the philosophy of "don't be evil" be followed.  It should finally be noted that
-small portions of the code (mostly in the parsetree and symboltable files) were
-written by Dr. Brian Turnquist at Bethel University and I have him to thank for
-the excellent intro course he taught on compiler construction.
+own projects.  It should finally be noted that small portions of the code (mostly
+in the parsetree and symboltable files) were written by Dr. Brian Turnquist at
+Bethel University and I have him to thank for the excellent intro course he
+taught on compiler construction.
 
 With that, here's some sparse documentation.  Happy coding!
--Rob
+
+--------------------------------------------------------------------------------
+
+License
+--------------------------------------------------------------------------------
+The MIT License (MIT)
+
+Copyright (c) 2012 Rob Upcraft
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
 
 
 --------------------------------------------------------------------------------
@@ -100,11 +124,12 @@ a help screen outlining the options offered.
 
 
 --------------------------------------------------------------------------------
+
 Language Features & Examples
 --------------------------------------------------------------------------------
---------------------------------------------------------------------------------
-General Program Structure
---------------------------------------------------------------------------------
+
+### General Program Structure ###
+
 Every program in U, like C, contains a main() function that returns 'void'.
 Note that instead of opening and closing braces, each function (and other
 code blocks in the language) are terminated with the 'end' keyword:
@@ -140,9 +165,8 @@ function blocks to import external U source files into the compiler:
 		// code for printing a single character . . .
 	end
 
---------------------------------------------------------------------------------
-Variables and Data Types
---------------------------------------------------------------------------------
+### Variables and Data Types ###
+
 U includes 5 data types (in addition to the 'void' type) that can be used to
 declare variables within a program:
 
@@ -180,9 +204,9 @@ As in C, basic mathematical operators (+, -, *, and /) as well as % (modulus)
 are supported.  Increment (++) and decrement (--), as well as other shortcuts
 like the '+=' operator do not currently exist in the language.
 
---------------------------------------------------------------------------------
-Conditional Statements
---------------------------------------------------------------------------------
+
+### Conditional Statements ###
+
 At present, the only conditional control structure supported in U is the if-else
 block.  Note that the words 'true' and 'false' are reserved and have their
 conventional boolean values:
@@ -215,10 +239,10 @@ conventional boolean values:
 		end
 	end
 
---------------------------------------------------------------------------------
-Looping
---------------------------------------------------------------------------------
-Currently, the only looping structure supported in U is the 'while' block:
+
+### Iteration ###
+
+Currently, the only loop structure supported in U is the 'while' block:
 	
 	include "someio.u";	
 	void main()
@@ -232,9 +256,8 @@ Currently, the only looping structure supported in U is the 'while' block:
 	end
 	
 
---------------------------------------------------------------------------------
-Inline Assembly
---------------------------------------------------------------------------------
+### Inline Assembly ###
+
 One of the relatively unique features of U is that is is designed to support
 inline Intel x86 assembly.  At present, only the 'mov' and 'int' calls are
 supported (to take advantage of BIOS interrupt calls) but more are planned to be

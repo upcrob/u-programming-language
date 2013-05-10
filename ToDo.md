@@ -1,5 +1,5 @@
 U Compiler Wish List
---------------------
+====================
 This is a non-comprehensive list of features I'm planning to add to the compiler
 if I ever have time and become less lazy:
 

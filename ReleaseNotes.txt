@@ -1,8 +1,0 @@
-RELEASE NOTES:
---------------
-
-12/7/2012 - v0.01
-* initial release
-
-2/23/2013 - v0.02
-* added integer constant folding
