@@ -1,3 +1,8 @@
+/*
+ * upre.l
+ * (f)lex lexer file for first pass tokenizer.
+ */
+
 %{
 	#include "defines.h"  
 	#include "upre.tab.h"  
@@ -64,77 +69,117 @@
 
 %%
 
-[/][\*]		{
-				int i = currentLine;
-				while (TRUE)
-				{
-					int v = yylex();
-					if (v == ENDMULTICOMMENT)
-						break;
-					
-					if (v == 0)
-					{
-						printf("unexpected end of file, unmatched '/*' on line %d\n", i);
-						exit(1);
-					} else if (strcmp(yytext, "\n") == 0) {
-						currentLine++;
-					}
-				}
-			}
+[/][\*] {
+	int i = currentLine;
+	while (TRUE)
+	{
+		int v = yylex();
+		if (v == ENDMULTICOMMENT)
+			break;
+		
+		if (v == 0)
+		{
+			printf("unexpected end of file, unmatched '/*' on line %d\n", i);
+			exit(1);
+		} else if (strcmp(yytext, "\n") == 0) {
+			currentLine++;
+		}
+	}
+}
 			
-[\*][/]		{
-				return ENDMULTICOMMENT;
-			}
+[\*][/] {
+	return ENDMULTICOMMENT;
+}
 			
-import		{ return IMPORT; }
+import {
+	return IMPORT;
+}
 
-[\"][^\n]*[\"]	{
-					char* litStr = yytext + 1;
-					litStr = strdup(litStr);
-					litStr[strlen(litStr) - 1] = '\0';
-					uprelval.sval = litStr;
-					return STRING_LITERAL;
-				}
+[\"][^\n]*[\"] {
+	char* litStr = yytext + 1;
+	litStr = strdup(litStr);
+	litStr[strlen(litStr) - 1] = '\0';
+	uprelval.sval = litStr;
+	return STRING_LITERAL;
+}
 
-while		{ blockDepth++; }
+while {
+	blockDepth++;
+}
 
 else[\t ]+if	;
 
-if			{ blockDepth++; }
+if {
+	blockDepth++;
+}
 
-asm			{ blockDepth++; }
+asm {
+	blockDepth++;
+}
 
-void		{ return VOID; }
+void {
+	return VOID;
+}
 
-byte		{ return BYTE; }
+byte {
+	return BYTE;
+}
 
-word		{ return WORD; }
+word {
+	return WORD;
+}
 
-bool		{ return BOOL; }
+bool {
+	return BOOL;
+}
 
-byte\[\] 	{ return BYTEP; }
+byte\[\] {
+	return BYTEP;
+}
 
-word\[\]	{ return WORDP; }
+word\[\] {
+	return WORDP;
+}
 
-end			{ if (blockDepth == 0) { return END; } else { blockDepth--; } }
+end {
+	if (blockDepth == 0)
+		return END;
+	else
+		blockDepth--;
+}
 
-"("			{ return OPAREN; }
+"(" {
+	return OPAREN;
+}
 
-")"			{ return CPAREN; }
+")" {
+	return CPAREN;
+}
 
-","			{ return COMMA; }
+"," {
+	return COMMA;
+}
 
-";"			{ return SEMICOLON; }
+";" {
+	return SEMICOLON;
+}
 
-[/][/][^\n]*[\n] { currentLine++; }
+[/][/][^\n]*[\n] {
+	currentLine++;
+}
 
-[a-zA-Z][a-z_0-9A-Z]* { uprelval.sval = strdup(yytext); return IDENT; }
+[a-zA-Z][a-z_0-9A-Z]* {
+	uprelval.sval = strdup(yytext);
+	return IDENT;
+}
 
-[ \t]+	;
+[ \t]+ ;
 
-[\r?\n]	{ currentLine++; }
+[\r?\n] {
+	currentLine++;
+}
 
-.	;
+. ;
 
 
 %%

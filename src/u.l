@@ -1,3 +1,8 @@
+/*
+ * u.l
+ * (f)lex lexer token definition file for the U programming language.
+ */
+
 %{
 	#include "defines.h"
 	#include "u.tab.h"   
@@ -61,194 +66,250 @@
 
 %%
 
-[/][\*]		{
-				int i = currentLine;
-				while (TRUE)
-				{
-					int v = yylex();
-					if (v == ENDMULTICOMMENT)
-						break;
+[/][\*] {
+	int i = currentLine;
+	while (TRUE)
+	{
+		int v = yylex();
+		if (v == ENDMULTICOMMENT)
+			break;
 					
-					if (v == 0)
-					{
-						printf("unexpected end of file, unmatched '/*' on line %d\n", i);
-						exit(1);
-					} else if (strcmp(yytext, "\n") == 0) {
-						currentLine++;
-					}
-				}
-			}
+		if (v == 0)
+		{
+			printf("unexpected end of file, unmatched '/*' on line %d\n", i);
+			exit(1);
+		} else if (strcmp(yytext, "\n") == 0) {
+			currentLine++;
+		}
+	}
+}
 			
-[\*][/]		{
-				return ENDMULTICOMMENT;
-			}
+[\*][/] {
+	return ENDMULTICOMMENT;
+}
 
-import		{ return IMPORT; }
+import {
+	return IMPORT;
+}
 
-while		{ return WHILE; }
+while {
+	return WHILE;
+}
 
-else[ \t]+if { return ELSEIF; }
+else[ \t]+if {
+	return ELSEIF;
+}
 
-if			{ return IF; }
+if {
+	return IF;
+}
 
-else		{ return ELSE; }
+else {
+	return ELSE;
+}
 
-true		{ return LTRUE; }
+true {
+	return LTRUE;
+}
 
-null		{ return LNULL; }
+null {
+	return LNULL;
+}
 
-false		{ return LFALSE; }
+false {
+	return LFALSE;
+}
 
-asm			{ return ASM; }
+asm {
+	return ASM;
+}
 
-return		{ return RETURN; }
+return {
+	return RETURN;
+}
 
-void		{ return VOID; }
+void {
+	return VOID;
+}
 
-byte		{ return BYTE; }
+byte {
+	return BYTE;
+}
 
-word		{ return WORD; }
+word {
+	return WORD;
+}
 
-bool		{ return BOOL; }
+bool {
+	return BOOL;
+}
 
-byte\[\] 	{ return BYTEP; }
+byte\[\] {
+	return BYTEP;
+}
 
-word\[\]	{ return WORDP; }
+word\[\] {
+	return WORDP;
+}
 
-end			{ return END; }
+end	{
+	return END;
+}
 
-[\"][^\n]*[\"]	{
-					char* litStr = yytext + 1;
-					litStr = strdup(litStr);
-					litStr[strlen(litStr) - 1] = '\0';
-					ulval.sval = litStr;
-					
-					return STRING_LITERAL;
-				}
+[\"][^\n]*[\"] {
+	char* litStr = yytext + 1;
+	litStr = strdup(litStr);
+	litStr[strlen(litStr) - 1] = '\0';
+	ulval.sval = litStr;
+	
+	return STRING_LITERAL;
+}
 
-'.'			{
-				char* litChar = yytext + 1;
-				litChar = strdup(litChar);
-				litChar[1] = '\0';
-				ulval.sval = litChar;
-				return CHAR;
-			}
+'.' {
+	char* litChar = yytext + 1;
+	litChar = strdup(litChar);
+	litChar[1] = '\0';
+	ulval.sval = litChar;
+	return CHAR;
+}
 
-[abcd][hlx]	{
-				strToLower(yytext);
-				ulval.ival = 0;
-				if (strcmp(yytext, "ax") == 0)
-					ulval.ival = AX;
-				else if (strcmp(yytext, "bx") == 0)
-					ulval.ival = BX;
-				else if (strcmp(yytext, "cx") == 0)
-					ulval.ival = CX;
-				else if (strcmp(yytext, "dx") == 0)
-					ulval.ival = DX;
-				else if (strcmp(yytext, "ah") == 0)
-					ulval.ival = AH;
-				else if (strcmp(yytext, "al") == 0)
-					ulval.ival = AL;
-				else if (strcmp(yytext, "bh") == 0)
-					ulval.ival = BH;
-				else if (strcmp(yytext, "bl") == 0)
-					ulval.ival = BL;
-				else if (strcmp(yytext, "ch") == 0)
-					ulval.ival = CH;
-				else if (strcmp(yytext, "cl") == 0)
-					ulval.ival = CL;
-				else if (strcmp(yytext, "dh") == 0)
-					ulval.ival = DH;
-				else if (strcmp(yytext, "dl") == 0)
-					ulval.ival = DL;
-				return G_REG;
-			}
+[abcd][hlx] {
+	strToLower(yytext);
+	ulval.ival = 0;
+	if (strcmp(yytext, "ax") == 0)
+		ulval.ival = AX;
+	else if (strcmp(yytext, "bx") == 0)
+		ulval.ival = BX;
+	else if (strcmp(yytext, "cx") == 0)
+		ulval.ival = CX;
+	else if (strcmp(yytext, "dx") == 0)
+		ulval.ival = DX;
+	else if (strcmp(yytext, "ah") == 0)
+		ulval.ival = AH;
+	else if (strcmp(yytext, "al") == 0)
+		ulval.ival = AL;
+	else if (strcmp(yytext, "bh") == 0)
+		ulval.ival = BH;
+	else if (strcmp(yytext, "bl") == 0)
+		ulval.ival = BL;
+	else if (strcmp(yytext, "ch") == 0)
+		ulval.ival = CH;
+	else if (strcmp(yytext, "cl") == 0)
+		ulval.ival = CL;
+	else if (strcmp(yytext, "dh") == 0)
+		ulval.ival = DH;
+	else if (strcmp(yytext, "dl") == 0)
+		ulval.ival = DL;
+	return G_REG;
+}
 
-[0-9][0-9A-Fa-f]*[h]	{
-							ulval.ival = strtol(yytext, NULL, 16);
-							return HEX;
-						}
+[0-9][0-9A-Fa-f]*[h] {
+	ulval.ival = strtol(yytext, NULL, 16);
+	return HEX;
+}
 
-[01]+[bB]	{
-				ulval.ival = bintoint(yytext);
-				return BIN;
-			}
+[01]+[bB] {
+	ulval.ival = bintoint(yytext);
+	return BIN;
+}
 
-int			{ return INT; }
+int {
+	return INT;
+}
 
-mov			{ return MOV; }
+mov {
+	return MOV;
+}
 
-[=][=]		{ return EQ; }
+[=][=] {
+	return EQ;
+}
 
-[!][=]		{ return NEQ; }
+[!][=] {
+	return NEQ;
+}
 
-[>][=]		{ return GTE; }
+[>][=] {
+	return GTE;
+}
 
-[<][=]		{ return LTE; }
+[<][=] {
+	return LTE;
+}
 
-[>]			{ return GT; }
+[>] {
+	return GT;
+}
 
-[<]			{ return LT; }
+[<] {
+	return LT;
+}
 
-[a-zA-Z][a-z_0-9A-Z]*	{
-							ulval.sval = strdup(yytext);
-							symtab_entry* entry = LookupSymbol(symStack, yytext);
-							if (entry == NULL)
-							{
-								// Entry doesn't exist in symbol table, check function table
-								function* f = LookupFunction(fTable, yytext);
-								if (f == NULL)
-								{
-									// Identifier not defined
-									return IDENT_UNDEC;
-								} else if (f->type == IT_VOID) {
-									// Void identifier
-									return FIDENT_VOID;
-								} else if (f->type == IT_BYTE) {
-									// Byte identifier
-									return FIDENT_BYTE;
-								} else if (f->type == IT_WORD) {
-									// Word identifier
-									return FIDENT_WORD;
-								} else if (f->type == IT_BOOL) {
-									// Bool identifier
-									return FIDENT_BOOL;
-								} else if (f->type == IT_BYTEP) {
-									// Byte[] identifier
-									return FIDENT_BYTEP;
-								} else {
-									// Word[] identifier
-									return FIDENT_WORDP;
-								}
-							} else if (entry->type == IT_BYTE) {
-								// Byte identifier
-								return IDENT_BYTE;
-							} else if (entry->type == IT_WORD) {
-								// Word identifier
-								return IDENT_WORD;
-							} else if (entry->type == IT_BOOL) {
-								// Bool identifier
-								return IDENT_BOOL;
-							} else if (entry->type == IT_BYTEP) {
-								// Byte[] identifier
-								return IDENT_BYTEP;
-							} else {
-								// Word[] identifier
-								return IDENT_WORDP;
-							}
-						}
+[a-zA-Z][a-z_0-9A-Z]* {
+	ulval.sval = strdup(yytext);
+	symtab_entry* entry = LookupSymbol(symStack, yytext);
+	if (entry == NULL)
+	{
+		// Entry doesn't exist in symbol table, check function table
+		function* f = LookupFunction(fTable, yytext);
+		if (f == NULL)
+		{
+			// Identifier not defined
+			return IDENT_UNDEC;
+		} else if (f->type == IT_VOID) {
+			// Void identifier
+			return FIDENT_VOID;
+		} else if (f->type == IT_BYTE) {
+			// Byte identifier
+			return FIDENT_BYTE;
+		} else if (f->type == IT_WORD) {
+			// Word identifier
+			return FIDENT_WORD;
+		} else if (f->type == IT_BOOL) {
+			// Bool identifier
+			return FIDENT_BOOL;
+		} else if (f->type == IT_BYTEP) {
+			// Byte[] identifier
+			return FIDENT_BYTEP;
+		} else {
+			// Word[] identifier
+			return FIDENT_WORDP;
+		}
+	} else if (entry->type == IT_BYTE) {
+		// Byte identifier
+		return IDENT_BYTE;
+	} else if (entry->type == IT_WORD) {
+		// Word identifier
+		return IDENT_WORD;
+	} else if (entry->type == IT_BOOL) {
+		// Bool identifier
+		return IDENT_BOOL;
+	} else if (entry->type == IT_BYTEP) {
+		// Byte[] identifier
+		return IDENT_BYTEP;
+	} else {
+		// Word[] identifier
+		return IDENT_WORDP;
+	}
+}
 
-[0-9]+		{
-				ulval.ival = atoi(yytext);
-				return INTEGER;
-			}
+[0-9]+ {
+	ulval.ival = atoi(yytext);
+	return INTEGER;
+}
 
-[/][/][^\n]*[\n] { currentLine++; };
+[/][/][^\n]*[\n] {
+	currentLine++;
+}
 
 [ \t]+	;
 
-[\r?\n]	{ currentLine++; };
+[\r?\n] {
+	currentLine++;
+}
 
-.			{ return yytext[0]; }
+. {
+	return yytext[0];
+}
 
 %%
