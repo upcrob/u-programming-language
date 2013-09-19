@@ -229,6 +229,9 @@ vtype:
 	| WORDP {
 		$$ = IT_WORDP;
 	}
+	| BOOL {
+		$$ = IT_BOOL;
+	}
 ;
 %%
 

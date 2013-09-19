@@ -120,6 +120,7 @@
 %type <tnode> assignment_statement
 %type <tnode> arg_list
 %type <tnode> int_function_call
+%type <tnode> bool_function_call
 %type <tnode> ptr_function_call
 %type <tnode> void_function_call
 %type <tnode> undec_function_call
@@ -219,6 +220,7 @@ statement:
 	| while_statement
 	| if_statement
 	| int_function_call ';'
+	| bool_function_call ';'
 	| void_function_call ';'
 	| asm_statement
 	| return_statement
@@ -744,6 +746,7 @@ bool_op:
 		$$ = newTreeNode();
 		$$->type = TN_TRUE;
 	}
+	| bool_function_call
 	| LFALSE {
 		$$ = newTreeNode();
 		$$->type = TN_FALSE;
@@ -826,7 +829,33 @@ int_function_call:
 		free($1);
 	}
 ;
-	
+
+
+bool_function_call:
+	FIDENT_BOOL '(' ')'	{
+		$$ = newTreeNode();
+		$$->type = TN_FUNCTIONCALL;
+		$$->sval = strdup($1);
+		
+		function* f = LookupFunction(fTable, $1);
+		f->called = TRUE;
+		
+		free($1);
+	}
+	| FIDENT_BOOL '(' arg_list ')' {
+		$$ = newTreeNode();
+		$$->type = TN_FUNCTIONCALL;
+		$$->sval = strdup($1);
+		$$->numOperands = 1;
+		$$->operands[0] = $3;
+		
+		function* f = LookupFunction(fTable, $1);
+		f->called = TRUE;
+		
+		free($1);
+	}
+
+;
 ptr_function_call:
 	FIDENT_BYTEP '(' ')' {
 		$$ = newTreeNode();
@@ -1182,6 +1211,9 @@ vtype:
 	}
 	| WORDP {
 		$$ = IT_WORDP;
+	}
+	| BOOL {
+		$$ = IT_BOOL;
 	}
 ;
 
