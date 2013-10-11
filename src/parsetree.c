@@ -118,6 +118,10 @@ void PrintParseTree(struct tree_node* pNode, int depth)
 		printf("FUNCTION\n");
 	else if (pNode->type == TN_FUNCTIONCALL)
 		printf("FUNCTION CALL (\"%s\")\n", pNode->sval);
+	else if (pNode->type == TN_SEGCALL)
+		printf("SEGMENT() CALL\n");
+	else if (pNode->type == TN_OFFCALL)
+		printf("OFFSET() CALL\n");
 	else if (pNode->type == TN_BYTE_ASSIGN)
 		printf("BYTE ASSIGN\n");
 	else if (pNode->type == TN_WORD_ASSIGN)
@@ -158,6 +162,8 @@ void PrintParseTree(struct tree_node* pNode, int depth)
 		printf("REGISTER (%s)\n", regStr(pNode->ival));
 	else if (pNode->type == TN_AMOV)
 		printf("MOV\n");
+	else if (pNode->type == TN_ACALL)
+		printf("CALL\n");
 	else if (pNode->type == TN_AINT)
 		printf("INT\n");
 	else if (pNode->type == TN_IADD)

@@ -156,6 +156,14 @@ end	{
 	return END;
 }
 
+segment {
+	return SEGMENT;
+}
+
+offset {
+	return OFFSET;
+}
+
 [\"][^\n]*[\"] {
 	char* litStr = yytext + 1;
 	litStr = strdup(litStr);

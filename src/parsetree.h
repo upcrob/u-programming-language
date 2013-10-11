@@ -16,6 +16,8 @@ typedef enum node_type_tag
 {
 	TN_FUNCTION,
 	TN_FUNCTIONCALL,
+	TN_SEGCALL,
+	TN_OFFCALL,
 	TN_PARAM,
 	TN_PARAMLIST,
 	TN_FDEF,

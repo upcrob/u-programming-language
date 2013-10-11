@@ -6,7 +6,7 @@
 %{
 	// General defines
 	#define YYDEBUG 1
-	#define VERSION "0.05"
+	#define VERSION "0.06"
 
 	// Includes
 	#include <stdio.h>
@@ -78,6 +78,8 @@
 %token BYTEP
 %token WORDP
 %token END
+%token SEGMENT
+%token OFFSET
 %token EQ
 %token NEQ
 %token GTE
@@ -124,6 +126,8 @@
 %type <tnode> bool_function_call
 %type <tnode> ptr_function_call
 %type <tnode> void_function_call
+%type <tnode> segment_function_call
+%type <tnode> offset_function_call
 %type <tnode> undec_function_call
 %type <tnode> while_statement
 %type <tnode> while_header
@@ -952,6 +956,24 @@ void_function_call:
 		free($1);
 	}
 ;
+
+segment_function_call:
+	SEGMENT '(' ptr_exp ')' {
+		$$ = newTreeNode();
+		$$->type = TN_SEGCALL;
+		$$->numOperands = 1;
+		$$->operands[0] = $3;
+	}
+;
+
+offset_function_call:
+	OFFSET '(' ptr_exp ')' {
+		$$ = newTreeNode();
+		$$->type = TN_OFFCALL;
+		$$->numOperands = 1;
+		$$->operands[0] = $3;
+	}
+;
 					
 undec_function_call:
 	IDENT_UNDEC '(' ')' {
@@ -1077,6 +1099,8 @@ int_exp:
 		if ($3->type == TN_INTEGER && $3->ival == 0)
 			yyerror("division by zero");
 	}
+	| segment_function_call
+	| offset_function_call
 	| '(' int_exp ')' { $$ = $2; }
 ;
 			

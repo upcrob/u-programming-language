@@ -227,6 +227,16 @@ void EmitHelper(struct tree_node* node)
 		if (node->operands[2] != NULL)
 			EmitHelper(node->operands[2]);
 		fprintf(fp, "endif_%d:\n", node->id);
+	} else if (node->type == TN_SEGCALL) {
+		// segment() built-in function
+		EmitHelper(node->operands[0]);
+		fprintf(fp, "pop ax\npop bx\n");
+		fprintf(fp, "push bx\n");
+	} else if (node->type == TN_OFFCALL) {
+		// offset() built-in function
+		EmitHelper(node->operands[0]);
+		fprintf(fp, "pop ax\npop bx\n");
+		fprintf(fp, "push ax\n");
 	} else if (node->type == TN_ASM) {
 		// Assembly code
 		EmitHelper(node->operands[0]);
