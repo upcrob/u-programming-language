@@ -1,5 +1,10 @@
 # RELEASE NOTES
 
+## 10/10/2013 - v0.0.6
+
+* added segment() and offset() built-in functions for extracting
+	the segment and offset from a pointer expression
+
 ## 9/21/2013 - v0.0.4
 
 * added assembly call instruction with integer-type arguments
