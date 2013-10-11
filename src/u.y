@@ -6,7 +6,7 @@
 %{
 	// General defines
 	#define YYDEBUG 1
-	#define VERSION "0.03"
+	#define VERSION "0.05"
 
 	// Includes
 	#include <stdio.h>
@@ -92,6 +92,7 @@
 %token <ival> HEX
 %token <ival> BIN
 %token INT
+%token CALL
 
 /* Associativity and precedence. */
 %left ','
@@ -597,6 +598,30 @@ asm_line:
 	| INT BIN {
 		$$ = newTreeNode();
 		$$->type = TN_AINT;
+		$$->numOperands = 1;
+		$$->operands[0] = newTreeNode();
+		$$->operands[0]->type = TN_INTEGER;
+		$$->operands[0]->ival = $2;
+	}
+	| CALL HEX {
+		$$ = newTreeNode();
+		$$->type = TN_ACALL;
+		$$->numOperands = 1;
+		$$->operands[0] = newTreeNode();
+		$$->operands[0]->type = TN_INTEGER;
+		$$->operands[0]->ival = $2;
+	}
+	| CALL INTEGER {
+		$$ = newTreeNode();
+		$$->type = TN_ACALL;
+		$$->numOperands = 1;
+		$$->operands[0] = newTreeNode();
+		$$->operands[0]->type = TN_INTEGER;
+		$$->operands[0]->ival = $2;
+	}
+	| CALL BIN {
+		$$ = newTreeNode();
+		$$->type = TN_ACALL;
 		$$->numOperands = 1;
 		$$->operands[0] = newTreeNode();
 		$$->operands[0]->type = TN_INTEGER;

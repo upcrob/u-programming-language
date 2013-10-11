@@ -50,6 +50,7 @@ typedef enum node_type_tag
 	TN_ASMREG,
 	TN_AMOV,
 	TN_AINT,
+	TN_ACALL,
 	TN_IADD,
 	TN_ISUB,
 	TN_UMINUS,

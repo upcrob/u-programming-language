@@ -41,6 +41,10 @@ const char* regStr(int reg)
 			return "dh";
 		case DL:
 			return "dl";
+		case SI:
+			return "si";
+		case DI:
+			return "di";
 		default:
 			return "";
 	}

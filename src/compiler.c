@@ -251,6 +251,9 @@ void EmitHelper(struct tree_node* node)
 	} else if (node->type == TN_AINT) {
 		// int instruction
 		fprintf(fp, "int %d\n", node->operands[0]->ival);
+	} else if (node->type == TN_ACALL) {
+		// call instruction
+		fprintf(fp, "call %d\n", node->operands[0]->ival);
 	} else if (node->type == TN_IADD) {
 		// Integer addition
 		EmitHelper(node->operands[0]);

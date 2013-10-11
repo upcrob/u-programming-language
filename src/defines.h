@@ -20,6 +20,8 @@
 #define DH 11
 #define DL 12
 #define ES 13
+#define SI 14
+#define DI 15
 
 // Parser states
 #define OUTF 1

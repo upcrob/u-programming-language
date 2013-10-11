@@ -203,6 +203,16 @@ end	{
 	return G_REG;
 }
 
+[sd][i] {
+	strToLower(yytext);
+	ulval.ival = 0;
+	if (strcmp(yytext, "si") == 0)
+		ulval.ival = SI;
+	else if (strcmp(yytext, "di") == 0)
+		ulval.ival = DI;
+	return G_REG;
+}
+
 [0-9][0-9A-Fa-f]*[h] {
 	ulval.ival = strtol(yytext, NULL, 16);
 	return HEX;
@@ -219,6 +229,10 @@ int {
 
 mov {
 	return MOV;
+}
+
+call {
+	return CALL;
 }
 
 [=][=] {
