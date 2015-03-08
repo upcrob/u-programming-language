@@ -3,7 +3,7 @@
  */
 
 // Includes
-#include <malloc.h>
+#include <stdlib.h>
 #include "list.h"
 #ifndef NULL
 	#define NULL 0

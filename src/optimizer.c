@@ -3,7 +3,7 @@
  * Functions for optimizing the parse-tree.
  */
 
- #include <malloc.h>
+ #include <stdlib.h>
  #include "parsetree.h"
  #include <stdio.h>
 

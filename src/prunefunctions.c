@@ -6,7 +6,7 @@
 #include "functiontable.h"
 #include "parsetree.h"
 #include "defines.h"
-#include <malloc.h>
+#include <stdlib.h>
 #include <string.h>
 
 struct tree_node* pruneUnusedFunctions(function_table* fTable, struct tree_node* root)

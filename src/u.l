@@ -16,7 +16,7 @@
 	#include <string.h>
 	#include "stringtable.h"
 	#include "stringqueue.h"
-	#include <malloc.h>
+	#include <stdlib.h>
 
 	symbol_stack* symStack;
 	function_table* fTable;

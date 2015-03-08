@@ -2,7 +2,7 @@
  * Functions for adding/removing strings from a queue.
  */
  #include "stringqueue.h"
- #include <malloc.h>
+ #include <stdlib.h>
  #include <string.h>
  #include <assert.h>
 

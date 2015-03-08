@@ -5,7 +5,7 @@
 #include <assert.h>
 #include "symboltable.h"
 #include "identifiertypes.h"
-#include <malloc.h>
+#include <stdlib.h>
 #include "symbolstack.h"
 #include <stdio.h>
 

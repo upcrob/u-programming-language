@@ -15,7 +15,7 @@
 	#include <string.h>
 	#include "stringtable.h"
 	#include "stringqueue.h"
-	#include <malloc.h>
+	#include <stdlib.h>
 
 	// External variables
 	extern char* currentFile;

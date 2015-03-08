@@ -1,5 +1,5 @@
 #include <assert.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include "parsetree.h"
 #include <stdio.h>
 #include "defines.h"

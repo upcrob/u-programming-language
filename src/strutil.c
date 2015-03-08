@@ -1,7 +1,7 @@
 /*
  * String utility functions.
  */
-#include <malloc.h>
+#include <stdlib.h>
 #include <string.h>
 #include "strutil.h"
 #include "defines.h"

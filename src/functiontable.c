@@ -4,7 +4,7 @@
 
 #include "defines.h"
 #include <stdio.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include "functiontable.h"
 #include "identifiertypes.h"
 #include "strutil.h"
