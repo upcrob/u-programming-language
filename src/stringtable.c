@@ -15,6 +15,7 @@ string_table* CreateStringTable()
 	t->cap = 10;
 	t->size = 0;
 	t->strings = (char**) malloc(sizeof(char*) * t->cap);
+	return t;
 }
 
 // Free string table

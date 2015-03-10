@@ -23,6 +23,7 @@
 	#include "prunefunctions.h"
 	#include <regex.h>
 	#include "optimizer.h"
+	#include "compiler.h"
 
 	extern char* currentFile;
 	extern symbol_stack* symStack;
@@ -32,6 +33,9 @@
 	extern string_table* fileTable;
 	extern string_queue* fileQueue;
 	extern string_queue* pFileQueue;
+
+	/* Added lone prototype so prototypes in u.tab.h and upre.tab.h won't conflict */
+	int upreparse(void);
 %}
 
 %name-prefix "u"
@@ -678,7 +682,7 @@ asm_memloc:
 		else if (t == IT_BOOL)
 			$$->operands[0]->type = TN_BOOL_IDENT;
 		else
-			$$->operands[0]->type == TN_PTR_IDENT;
+			$$->operands[0]->type = TN_PTR_IDENT;
 		$$->operands[0]->ival = sym->offset;
 		$$->operands[0]->sval = strdup($2);
 		free($2);

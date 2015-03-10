@@ -71,6 +71,8 @@ void AddParameter(function_table* table, char* fname, identifier_type type)
 		case IT_WORDP:
 			f->paramSize += 4;
 			break;
+		default:
+			printf("error - invalid parameter\n");
 	}
 		
 	f->params[f->numParams++] = type;
