@@ -96,7 +96,7 @@ Building
 To make a working executable, you will need the following installed on your
 development machine:
 * flex (http://flex.sourceforge.net)
-* bison (http://gnu.org/software/bison)
+* bison v3 (http://gnu.org/software/bison)
 * a C compiler (I used GCC on an Ubuntu box)
 
 In theory, other compilers and platforms should work but I haven't done
