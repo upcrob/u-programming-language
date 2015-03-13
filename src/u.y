@@ -6,7 +6,7 @@
 %{
 	// General defines
 	#define YYDEBUG 1
-	#define VERSION "0.06"
+	#define VERSION "0.0.7"
 
 	// Includes
 	#include <stdio.h>
@@ -207,7 +207,7 @@ function:
 ;
 
 import_statement:
-	IMPORT STRING_LITERAL ';' {
+	IMPORT STRING_LITERAL  {
 		free($2);
 	}
 ;
@@ -228,12 +228,12 @@ statement:
 	| assignment_statement
 	| while_statement
 	| if_statement
-	| int_function_call ';'
-	| bool_function_call ';'
-	| void_function_call ';'
+	| int_function_call 
+	| bool_function_call 
+	| void_function_call 
 	| asm_statement
 	| return_statement
-	| undec_function_call ';'
+	| undec_function_call 
 ;
 
 statement_list:
@@ -248,7 +248,7 @@ statement_list:
 ;
 
 decl_assign_statement:
-	BYTE IDENT_UNDEC '=' int_exp ';' {
+	BYTE IDENT_UNDEC '=' int_exp  {
 		AddSymbol(symStack, $2, IT_BYTE);
 		struct tree_node* ident = newTreeNode();
 		ident->type = TN_BYTE_IDENT;
@@ -261,7 +261,7 @@ decl_assign_statement:
 		$$->operands[1] = $4;
 		free($2);
 	}
-	| WORD IDENT_UNDEC '=' int_exp ';' {
+	| WORD IDENT_UNDEC '=' int_exp  {
 		AddSymbol(symStack, $2, IT_WORD);
 		struct tree_node* ident = newTreeNode();
 		ident->type = TN_WORD_IDENT;
@@ -274,7 +274,7 @@ decl_assign_statement:
 		$$->operands[1] = $4;
 		free($2);
 	}
-	| BOOL IDENT_UNDEC '=' bool_exp ';'			{
+	| BOOL IDENT_UNDEC '=' bool_exp 			{
 		AddSymbol(symStack, $2, IT_BOOL);
 		struct tree_node* ident = newTreeNode();
 		ident->type = TN_BOOL_IDENT;
@@ -287,7 +287,7 @@ decl_assign_statement:
 		$$->operands[1] = $4;
 		free($2);
 	}
-	| BYTEP IDENT_UNDEC '=' ptr_exp ';' {
+	| BYTEP IDENT_UNDEC '=' ptr_exp  {
 		AddSymbol(symStack, $2, IT_BYTEP);
 		struct tree_node* ident = newTreeNode();
 		ident->type = TN_PTR_IDENT;
@@ -300,7 +300,7 @@ decl_assign_statement:
 		$$->operands[1] = $4;
 		free($2);
 	}
-	| WORDP IDENT_UNDEC '=' ptr_exp ';' {
+	| WORDP IDENT_UNDEC '=' ptr_exp  {
 		AddSymbol(symStack, $2, IT_WORDP);
 		struct tree_node* ident = newTreeNode();
 		ident->type = TN_PTR_IDENT;
@@ -313,7 +313,7 @@ decl_assign_statement:
 		$$->operands[1] = $4;
 		free($2);
 	}
-	| vtype declared_identifier '=' expression ';' {
+	| vtype declared_identifier '=' expression  {
 		yyerror("symbol already declared");
 		free($2);
 		$$ = newTreeNode();
@@ -321,34 +321,34 @@ decl_assign_statement:
 ;
 
 decl_statement:
-	BYTE IDENT_UNDEC ';' {
+	BYTE IDENT_UNDEC  {
 		AddSymbol(symStack, $2, IT_BYTE);
 		free($2);
 	}
-	| WORD IDENT_UNDEC ';' {
+	| WORD IDENT_UNDEC  {
 		AddSymbol(symStack, $2, IT_WORD);
 		free($2);
 	}
-	| BOOL IDENT_UNDEC ';' {
+	| BOOL IDENT_UNDEC  {
 		AddSymbol(symStack, $2, IT_BOOL);
 		free($2);
 	}
-	| BYTEP IDENT_UNDEC ';' {
+	| BYTEP IDENT_UNDEC  {
 		AddSymbol(symStack, $2, IT_BYTEP);
 		free($2);
 	}
-	| WORDP IDENT_UNDEC ';' {
+	| WORDP IDENT_UNDEC  {
 		AddSymbol(symStack, $2, IT_WORDP);
 		free($2);
 	}
-	| vtype declared_identifier ';' {
+	| vtype declared_identifier  {
 		yyerror("symbol already declared");
 		free($2);
 	}
 ;
 
 assignment_statement:
-	IDENT_BYTE '=' int_exp ';' {
+	IDENT_BYTE '=' int_exp  {
 		$$ = newTreeNode();
 		$$->type = TN_BYTE_ASSIGN;
 		struct tree_node* ident = newTreeNode();
@@ -360,7 +360,7 @@ assignment_statement:
 		$$->operands[1] = $3;
 		free($1);
 	}
-	| IDENT_WORD '=' int_exp ';' {
+	| IDENT_WORD '=' int_exp  {
 		$$ = newTreeNode();
 		$$->type = TN_WORD_ASSIGN;
 		struct tree_node* ident = newTreeNode();
@@ -372,7 +372,7 @@ assignment_statement:
 		$$->operands[1] = $3;
 		free($1);
 	}
-	| IDENT_BYTEP '=' ptr_exp ';' {
+	| IDENT_BYTEP '=' ptr_exp  {
 		$$ = newTreeNode();
 		$$->type = TN_PTR_ASSIGN;
 		$$->numOperands = 2;
@@ -384,7 +384,7 @@ assignment_statement:
 		$$->operands[1] = $3;
 		free($1);
 	}
-	| IDENT_WORDP '=' ptr_exp ';' {
+	| IDENT_WORDP '=' ptr_exp  {
 		$$ = newTreeNode();
 		$$->type = TN_PTR_ASSIGN;
 		$$->numOperands = 2;
@@ -396,7 +396,7 @@ assignment_statement:
 		$$->operands[1] = $3;
 		free($1);
 	}
-	| IDENT_BYTEP '[' int_exp ']' '=' int_exp ';' {
+	| IDENT_BYTEP '[' int_exp ']' '=' int_exp  {
 		$$ = newTreeNode();
 		$$->type = TN_PTR_BYTE_ASSIGN;
 		$$->numOperands = 2;
@@ -406,7 +406,7 @@ assignment_statement:
 		$$->operands[1] = $6;
 		free($1);
 	}
-	| IDENT_WORDP '[' int_exp ']' '=' int_exp ';' {
+	| IDENT_WORDP '[' int_exp ']' '=' int_exp  {
 		$$ = newTreeNode();
 		$$->type = TN_PTR_WORD_ASSIGN;
 		$$->numOperands = 2;
@@ -416,7 +416,7 @@ assignment_statement:
 		$$->operands[1] = $6;
 		free($1);
 	}
-	| IDENT_BOOL '=' bool_exp ';' {
+	| IDENT_BOOL '=' bool_exp  {
 		$$ = newTreeNode();
 		$$->type = TN_BOOL_ASSIGN;
 		$$->numOperands = 2;
@@ -428,7 +428,7 @@ assignment_statement:
 		$$->operands[1] = $3;
 		free($1);
 	}
-	| IDENT_UNDEC '=' expression ';' {
+	| IDENT_UNDEC '=' expression  {
 		$$ = newTreeNode();
 		char err[500];
 		sprintf(err, "'%s' undeclared", $1);
@@ -1026,19 +1026,19 @@ arg_list:
 ;
 		 
 return_statement:
-	RETURN int_exp ';' {
+	RETURN int_exp  {
 		$$ = newTreeNode();
 		$$->type = TN_RET_INT;
 		$$->numOperands = 1;
 		$$->operands[0] = $2;
 	}
-	| RETURN bool_exp ';' {
+	| RETURN bool_exp  {
 		$$ = newTreeNode();
 		$$->type = TN_RET_BOOL;
 		$$->numOperands = 1;
 		$$->operands[0] = $2;
 	}
-	| RETURN ptr_exp ';' {
+	| RETURN ptr_exp  {
 		$$ = newTreeNode();
 		$$->type = TN_RET_PTR;
 		$$->numOperands = 1;
