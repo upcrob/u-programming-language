@@ -142,13 +142,13 @@ necessary nor relevant.  Also, 'import' statements can be used outside of
 function blocks to import external U source files into the compiler:
 	
 	// Import some other source files
-	import "somefile.u";
-	import "anotherfile.u";
+	import "somefile.u"
+	import "anotherfile.u"
 	
 	/* Main function */
 	void main()
-		print("Hello, world");
-		putc('!');
+		print("Hello, world")
+		putc('!')
 	end
 	
 	/* Print function */
@@ -177,23 +177,23 @@ word[] - A pointer to an array of words.  The pointer itself requires 32 bits
 Variables are declared and initialized in a manner very similar to C:
 	
 	void main()
-		byte a = 'A';	// store the character 'A' in the variable, a
-		byte c;			// declare the variable 'C'
-		c = a;			// set c to a's value
+		byte a = 'A'	// store the character 'A' in the variable, a
+		byte c			// declare the variable 'C'
+		c = a			// set c to a's value
 		
 		// Here we declare a variable called, x, and initialize it to point to
 		// the location 10:5 in memory.  In U, the value 10:5 represents the
 		// 10th segment in memory with an offset of 5 bytes (seg:off).  This
 		// ':' operator can be used this way in other non-constant expressions
 		// as well
-		byte[] x = 10:5;
-		byte[] y;			// declare the byte pointer, y
-		y = x;				// set y's pointer value to x's pointer value
+		byte[] x = 10:5
+		byte[] y			// declare the byte pointer, y
+		y = x				// set y's pointer value to x's pointer value
 		
 		// Point str to the string "hello, world!" in memory.  Note that this
 		// string is stored in a single location, so modifying it will modify
 		// in other locations that point to the identical string.
-		byte[] str = "hello, world!";
+		byte[] str = "hello, world!"
 	end
 	
 As in C, basic mathematical operators (+, -, *, and /) as well as % (modulus)
@@ -208,8 +208,8 @@ block.  Note that the words 'true' and 'false' are reserved and have their
 conventional boolean values:
 	
 	void main()
-		byte a = 'A';
-		byte b = 'B';
+		byte a = 'A'
+		byte b = 'B'
 		
 		// simple if-else
 		if (a == b)
@@ -240,14 +240,14 @@ conventional boolean values:
 
 Currently, the only loop structure supported in U is the 'while' block:
 	
-	include "someio.u";	
+	include "someio.u"
 	void main()
-		word i = 0;
+		word i = 0
 		
 		// print 'X' 10 times
 		while (i < 10)
-			putc('X');
-			i = i + 1;
+			putc('X')
+			i = i + 1
 		end
 	end
 	
@@ -261,8 +261,8 @@ added as the language is further developed:
 
 	/* Main function */
 	void main()
-		putc('A');		// print character
-		putc(getc());	// print a character that the user types
+		putc('A')		// print character
+		putc(getc())	// print a character that the user types
 	end
 	
 	/* Function that actually prints a character using a BIOS call */
@@ -276,11 +276,11 @@ added as the language is further developed:
 	
 	/* Function that gets a character from the keyboard using a BIOS call */
 	byte getc()
-		byte c;
+		byte c
 		asm
 			mov ah, 0
 			int 16h
 			mov [c], al
 		end
-		return c;
+		return c
 	end
